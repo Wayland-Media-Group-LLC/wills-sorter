@@ -16,6 +16,7 @@ Needs Python 3.9 or newer from python.org (tick "Add python.exe to PATH"). No ot
 
 - `Launch (silent).vbs` - open the window
 - `Launch (with console).bat` - open it with a console, to see errors
+- `Create Desktop Shortcut.vbs` - run once to put a Will's Sorter icon on the Desktop (run again if you move this folder)
 
 In the window:
 
