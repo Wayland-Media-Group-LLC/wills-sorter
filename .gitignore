@@ -1,0 +1,4 @@
+settings.json
+logs/
+gui_error.log
+__pycache__/

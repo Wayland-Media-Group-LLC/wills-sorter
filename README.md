@@ -1,22 +1,35 @@
 # Will's Sorter
 
-Keeps the Windows Downloads folder tidy. Uses the PowerShell built into Windows 10/11, so there is nothing to install.
+Keeps the Windows Downloads folder tidy, with a desktop window in the same style as Partners Toolbox.
 
-Each run it:
+Each pass it:
 
-1. **Sorts** loose files into category folders (Documents, Images, Videos, Installers, ...) and cleans up file names. Exact duplicates go to the Recycle Bin.
-2. **Zips** compressible files older than 60 days into monthly archives in `<Category>\Zipped\`.
-3. **Cleans** installers and abandoned partial downloads older than 90 days (sent to the Recycle Bin).
+1. **Sorts** loose files into category folders (Documents, Images, Videos, Installers, ...) and cleans up file names. Exact duplicates are removed.
+2. **Zips** compressible files older than 60 days into monthly archives in `<Category>\Zipped\`. An original is removed only after its copy in the zip is checked.
+3. **Cleans** installers and unfinished downloads older than 90 days (sent to the Recycle Bin).
 
-## Use
+Subfolders already in Downloads are left alone.
 
-Double-click one of:
+## Run
 
-- `1 - Preview (changes nothing).bat` - list what would happen
-- `2 - Run Now.bat` - run once
-- `3 - Install Daily Auto-Run.bat` - run every day at noon
-- `Uninstall Auto-Run.bat` - stop the daily run
+Needs Python 3.9 or newer from python.org (tick "Add python.exe to PATH"). No other packages.
 
-## Settings
+- `Launch (silent).vbs` - open the window
+- `Launch (with console).bat` - open it with a console, to see errors
 
-Day counts, run time and file-type lists are at the top of `DownloadsOrganizer.ps1`. Re-run the install launcher after changing them. The activity log is at `%LOCALAPPDATA%\DownloadsOrganizer\log.txt`.
+In the window:
+
+- **Organize** - Preview lists what a pass would do without changing anything; Organize now does it.
+- **Settings** - day counts, Recycle Bin on/off, and the daily background run (Windows Task Scheduler, no admin rights needed).
+- **Activity log** - everything it has done, including daily runs.
+
+Without the window: `python src\sorter.py --preview` or `python src\sorter.py --run`.
+
+## Files
+
+- `src/sorter.py` - all file operations, the daily task, and the command line
+- `src/app.py` - the window
+- `src/theme.py`, `src/ui_runtime.py` - styles and thread helper shared with Partners Toolbox
+- `settings.json`, `logs/` - created on first use, not committed
+
+File-type lists are at the top of `src/sorter.py`.
